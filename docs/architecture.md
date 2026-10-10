@@ -36,8 +36,8 @@ flowchart LR
   AI -->|"normal: meter3/clean + status GREEN"| BR
   AI -->|"attack: meter3/alert + status RED"| BR
   AI -->|"attack: block IP"| FW
-  BR -->|"clean + status"| NR
-  BR -->|"clean + status"| TB
+  BR -->|"clean + status (published by the AI)"| NR
+  BR -->|"clean + status (published by the AI)"| TB
   BR -->|"meter3/alert"| BOT
   BOT -->|"alert + Deploy button"| PH
   PH -->|"Deploy Honeypot"| BOT
