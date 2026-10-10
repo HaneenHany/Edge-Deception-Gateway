@@ -23,7 +23,7 @@ Who does what in the Edge-Deception Gateway project, the skills each part needs,
 **Skills needed**
 
 - C++ with the Arduino IDE
-- ESP32 basics (Wi-Fi, ADC pins)
+- ESP32 basics 
 - Analog sensors and basic electronics (take care around mains voltage)
 - MQTT and the `PubSubClient` library
 - JSON building (`ArduinoJson`)
@@ -49,6 +49,7 @@ If the Pi is not available yet, build and test everything on a laptop first (Mos
 6. Give Haneen write permission on the OTA folder.
 7. Decide how Alaa's script may run the `iptables` command (a limited sudo rule).
 8. Write the setup steps in `docs/pi-setup.md`.
+9. Set up the ThingsBoard dashboard to show the live readings and the green/red status.
 
 **Skills needed**
 
@@ -58,6 +59,7 @@ If the Pi is not available yet, build and test everything on a laptop first (Mos
 - systemd services
 - File permissions and `sudo`
 - Basic firewall use (`ufw` or `iptables`)
+- ThingsBoard basics (devices, dashboards, widgets)
 
 **Done when**
 
