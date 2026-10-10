@@ -64,7 +64,7 @@ If the Pi is not available yet, build and test everything on a laptop first (Mos
 **Done when**
 
 - A message sent with `mosquitto_pub` from another machine reaches `mosquitto_sub`, and a wrong password is rejected.
-- After a reboot, Mosquitto starts by itselب.
+- After a reboot, Mosquitto starts by itsel.
 - The ThingsBoard dashboard shows live readings from the broker.
 - Create a Linux user and SSH access on the Pi.
 
