@@ -1,1 +1,7 @@
-
+secrets.h
+.env
+passwd
+*.pem
+*.bin
+__pycache__/
+.venv/
