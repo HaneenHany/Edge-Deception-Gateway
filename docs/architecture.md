@@ -18,17 +18,17 @@ flowchart LR
       DEC["Decrypt<br/>AES-GCM"]
       AI["Rate counter<br/>+ AI model"]
     end
-    FW["iptables<br/>block attacker IP"]
+    FW["iptables<br/>block attacker IP (optional)"]
+    LED["Red/Green LED<br/>(GPIO, optional)"]
     NR["Node-RED dashboard"]
     TB["ThingsBoard dashboard"]
-  end
-
-  subgraph L3["Layer 3: Alerts and OTA"]
-    BOT["Telegram bot"]
+    BOT["Telegram bot script"]
     OTA["OTA server<br/>latest.txt + firmware.bin"]
   end
 
-  PH["Engineer phone"]
+  subgraph L3["Layer 3: Notification"]
+    PH["Engineer phone"]
+  end
 
   ESP -->|"meter3/raw (encrypted)"| BR
   BR -->|"meter3/raw"| DEC
@@ -45,6 +45,7 @@ flowchart LR
   ESP -.->|"HTTP check every 30 s"| OTA
   OTA -.->|"firmware.bin"| ESP
   ATK -.->|"flood: 200 msg/s"| BR
+  AI -->|"status color"| LED
 
   linkStyle 3 stroke:#2e9e5b,stroke-width:2px
   linkStyle 4,5,14 stroke:#d6402a,stroke-width:2px
