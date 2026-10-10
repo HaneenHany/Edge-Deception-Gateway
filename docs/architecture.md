@@ -6,18 +6,48 @@ The Edge-Deception Gateway sits between ESP32 smart meters and the cloud. A Rasp
 
 ```mermaid
 flowchart LR
-  ESP["ESP32 meter"] -->|"MQTT: meter3/raw"| MQ["Mosquitto broker (Pi)"]
-  MQ --> DET["Detection engine<br/>rate counter + AI"]
-  DET -->|"normal: meter3/clean"| MQ
-  DET -->|"meter3/status"| MQ
-  MQ --> NR["Node-RED dashboard"]
-  DET -->|"attack: meter3/alert"| BOT["Telegram bot"]
-  DET -->|"block attacker IP"| FW["iptables"]
-  BOT -->|"alert + buttons"| PHONE["Engineer phone"]
-  PHONE -->|"Deploy Honeypot"| BOT
-  BOT -->|"writes 2.0"| OTA["HTTP OTA server<br/>latest.txt + firmware.bin"]
-  ESP -->|"HTTP check every 30s"| OTA
-  OTA -->|"firmware.bin"| ESP
+  ATK["Attacker<br/>traffic flooding"]
+
+  subgraph L1["Layer 1: Field"]
+    ESP["ESP32 meter<br/>sensors + AES-GCM"]
+  end
+
+  subgraph L2["Layer 2: Raspberry Pi gateway"]
+    BR["Mosquitto broker<br/>ACL + username/password"]
+    subgraph DET["Detection script"]
+      DEC["Decrypt<br/>AES-GCM"]
+      AI["Rate counter<br/>+ AI model"]
+    end
+    FW["iptables<br/>block attacker IP"]
+    NR["Node-RED dashboard"]
+    TB["ThingsBoard dashboard"]
+  end
+
+  subgraph L3["Layer 3: Alerts and OTA"]
+    BOT["Telegram bot"]
+    OTA["OTA server<br/>latest.txt + firmware.bin"]
+  end
+
+  PH["Engineer phone"]
+
+  ESP -->|"meter3/raw (encrypted)"| BR
+  BR -->|"meter3/raw"| DEC
+  DEC --> AI
+  AI -->|"normal: meter3/clean + status GREEN"| BR
+  AI -->|"attack: meter3/alert + status RED"| BR
+  AI -->|"attack: block IP"| FW
+  BR -->|"clean + status"| NR
+  BR -->|"clean + status"| TB
+  BR -->|"meter3/alert"| BOT
+  BOT -->|"alert + Deploy button"| PH
+  PH -->|"Deploy Honeypot"| BOT
+  BOT -->|"writes 2.0 to latest.txt"| OTA
+  ESP -.->|"HTTP check every 30 s"| OTA
+  OTA -.->|"firmware.bin"| ESP
+  ATK -.->|"flood: 200 msg/s"| BR
+
+  linkStyle 3 stroke:#2e9e5b,stroke-width:2px
+  linkStyle 4,5,14 stroke:#d6402a,stroke-width:2px
 ```
 
 ## Components
