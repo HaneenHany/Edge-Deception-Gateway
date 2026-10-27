@@ -17,11 +17,15 @@ flowchart LR
   E2 --> E2a["meter_node.ino"]
   E2 --> E2b["secrets.h.example"]
 
-  P --> P1["broker"]
+  P --> P1["broker / mosquitto"]
   P --> P2["detection"]
-  P --> P3["MQTT logger"]
-  P --> P4["OTA server"]
-  P --> P5["Telegram bot"]
+  P --> P3["mqtt_logger"]
+  P --> P4["ota_server"]
+  P --> P5["telegram_bot"]
+
+  P5 --> P5a["SendAlert.py"]
+  P5 --> P5b["bot.py"]
+  P5 --> P5c["config.py"]
 
   N --> N1["attacker"]
   F --> F1["dashboard"]
