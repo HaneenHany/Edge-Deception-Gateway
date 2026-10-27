@@ -4,17 +4,17 @@ Step-by-step setup of the broker, the Python scripts, the OTA server, and the ES
 
 ## 0. What runs where
 
-| Component | Runs on | Notes |
-|---|---|---|
-| Mosquitto broker | Raspberry Pi | Docker, TLS on 8883 |
-| `MQTTToJson.py`, `DetectionScript.py` | Raspberry Pi | |
-| `main.py` (Telegram bot) and the OTA web server (port 8080) | One machine, **the same for both** | The bot writes `CodeVersion.txt`, and the web server serves it to the ESP32. |
-| ESP32 meter | Same Wi-Fi network | Its `SECRET_MQTT_HOST` is the Pi; its `SECRET_OTA_SERVER_HOST` is the OTA host. |
+| Component                                                 | Runs on                            | Notes                                                                           |
+| --------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------- |
+| Mosquitto broker                                          | Raspberry Pi                       | Docker, TLS on 8883                                                             |
+| `MQTTToJson.py`, `DetectionScript.py`                     | Raspberry Pi                       |                                                                                 |
+| bot.py` (Telegram bot) and the OTA web server (port 8080) | One machine, **the same for both** | The bot writes `CodeVersion.txt`, and the web server serves it to the ESP32.    |
+| ESP32 meter                                               | Same Wi-Fi network                 | Its `SECRET_MQTT_HOST` is the Pi; its `SECRET_OTA_SERVER_HOST` is the OTA host. |
 
 ## 1. Prerequisites
 
 - Docker and Docker Compose, Python 3, git, OpenSSL
-- Arduino IDE (or PlatformIO) with ESP32 board support and the libraries PubSubClient and DHT sensor library
+- Arduino IDE  with ESP32 board support and the libraries PubSubClient and DHT sensor library
 - A Telegram bot token (from @BotFather) and your chat ID
 - A Firebase Realtime Database (URL and database secret)
 
@@ -88,16 +88,16 @@ python3 -m http.server 8080       # one simple way to serve the folder on port 8
 In another terminal on that same machine:
 
 ```bash
-cd pi && python3 main.py          # set the same TELEGRAM_* values in its .env
+cd pi && python3 bot.py          # set the same TELEGRAM_* values in its .env
 ```
 
 Put `firmwareV1_0.bin` (meter) and `firmwareV1_1.bin` (honeypot) in `ota_server/`. They are not in the repo, because compiled binaries contain your Wi-Fi and MQTT passwords. Build them yourself in the Arduino IDE with **Sketch → Export Compiled Binary** from each sketch, using your own `secrets.h`.
 
 ## 9. Flash the ESP32
 
-1. In `esp32/EdgeDeceptionEsp/` and `esp32/ESPHoneyPot/`, copy `secrets.h.example` to `secrets.h` and fill it in (Wi-Fi, Pi IP, OTA host IP, MQTT password).
+1. In `esp32/meter_node/` and `esp32/honeypot/`, copy `secrets.h.example` to `secrets.h` and fill it in (Wi-Fi, Pi IP, OTA host IP, MQTT password).
 2. If you regenerated the CA, replace the certificate block in both `.ino` files with the new `ca.crt`.
-3. Flash `EdgeDeceptionEsp` (v1.0) over USB. The honeypot (v1.1) arrives later over the air.
+3. Flash `meter_node` (v1.0) over USB. The honeypot (v1.1) arrives later over the air.
 
 ## 10. Check that it works
 
