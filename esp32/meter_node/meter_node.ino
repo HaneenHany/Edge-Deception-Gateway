@@ -431,4 +431,4 @@ void loop() {
     lastOtaCheck = millis();
     checkForUpdate();
   }
-}// Main sketch: combines telemetry (Anwar) and OTA update (Haneen). Owners: Anwar & Haneen.
+}// Main sketch: combines telemetry and OTA update
