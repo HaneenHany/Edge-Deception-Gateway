@@ -4,11 +4,11 @@ Everything one component needs to know about another: ports, MQTT topics, JSON f
 
 ## Network and ports
 
-| Port | Protocol | Runs on | Purpose |
-|---|---|---|---|
-| 8883 | MQTT over TLS 1.2 | Raspberry Pi (Mosquitto in Docker, container `iiot-mosquitto`) | The only broker listener. Anonymous access is off. |
-| 8080 | HTTP (plain, local network only) | OTA host | Serves `CodeVersion.txt` and the firmware `.bin` files. |
-| 80 | HTTP | ESP32 in honeypot mode | Decoy "Smart Meter - Admin Login" page. |
+| Port | Protocol                         | Runs on                                                        | Purpose                                                 |
+| ---- | -------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------- |
+| 8883 | MQTT over TLS 1.2                | Raspberry Pi (Mosquitto in Docker, container `iiot-mosquitto`) | The only broker listener. Anonymous access is off.      |
+| 8080 | HTTP (plain, local network only) | OTA host                                                       | Serves `CodeVersion.txt` and the firmware `.bin` files. |
+| 80   | HTTP                             | ESP32 in honeypot mode                                         | Decoy "Smart Meter - Admin Login" page.                 |
 
 ## MQTT
 
@@ -32,13 +32,13 @@ Broker users (see `pi/mosquitto/config/acl.conf`): `gateway` (Pi scripts) and `e
 {"temperature": 26.6, "humidity": 47.6, "voltage": 14.12, "current": 0.0, "power": 0.0}
 ```
 
-| Field | Unit | Decimals | Notes |
-|---|---|---|---|
-| `temperature` | °C | 1 | Left out if the DHT read fails |
-| `humidity` | % | 1 | Left out if the DHT read fails |
-| `voltage` | V | 2 | Sampled over a 200 ms window |
-| `current` | A | 3 | |
-| `power` | W | 2 | |
+| Field         | Unit |
+| ------------- | ---- |
+| `temperature` | °C   |
+| `humidity`    | %    |
+| `voltage`     | V    |
+| `current`     | A    |
+| `power`       | W    |
 
 The payload has no `device_id`; the device is identified by the topic. Maximum size is 256 bytes on the ESP32, and the broker rejects messages over 8192 bytes (`message_size_limit`).
 
@@ -74,14 +74,14 @@ A 500-line example is in `data/sample/edgeguard_sample.jsonl`.
 | Malformed | A missing field or a non-JSON payload counts as abnormal |
 | Alert cooldown | Telegram: 60 s per alert type. Firebase: 10 s per alert type. |
 
-## Telegram bot (`main.py`)
+## Telegram bot (bot.py`)
 
-| Command / button | Effect |
-|---|---|
-| `/start` | Welcome message |
-| `/emergency` | Sends the DeployHoneyPot / IgnoreAttack buttons |
-| Button `DeployHoneyPot` | Writes `1.1` to `ota_server/CodeVersion.txt` |
-| Button `IgnoreAttack` | Writes `1.0` to `ota_server/CodeVersion.txt` |
+| Command / button                                  | Effect                                          |
+| ------------------------------------------------- | ----------------------------------------------- |
+| `/start`                                          | Welcome message                                 |
+| when emergency detected from `DetectionScript.py` | Sends the DeployHoneyPot / IgnoreAttack buttons |
+| Button `DeployHoneyPot`                           | Writes `1.1` to `ota_server/CodeVersion.txt`    |
+| Button `IgnoreAttack`                             | Writes `1.0` to `ota_server/CodeVersion.txt`    |
 
 `DetectionScript.py` sends the same buttons with each alert.
 
@@ -102,13 +102,14 @@ A 500-line example is in `data/sample/edgeguard_sample.jsonl`.
 
 ## Versions
 
-| Component | Version |
-|---|---|
-| Mosquitto image | `eclipse-mosquitto:2.0.18` |
-| TLS | 1.2 (CA-verified; certificates from `generate_certs.sh`) |
-| Meter firmware | `1.0` (`EdgeDeceptionEsp.ino`) |
-| Honeypot firmware | `1.1` (`ESPHoneyPot.ino`) |
-| ESP32 Arduino core | _fill in the version you build with_ |
-| ESP32 libraries | PubSubClient, DHT sensor library; _fill in versions_ |
-| Python and packages | see `pi/requirements.txt`; _fill in your Python version_ |
-| Raspberry Pi model / OS | _fill in_ |
+## Versions
+
+| Component           | Version                                                  |
+| ------------------- | -------------------------------------------------------- |
+| Mosquitto image     | `eclipse-mosquitto:2.0.18`                               |
+| TLS                 | 1.2 (CA-verified; certificates from `generate_certs.sh`) |
+| Meter firmware      | `1.0` (`EdgeDeceptionEsp.ino`)                           |
+| Honeypot firmware   | `1.1` (`ESPHoneyPot.ino`)                                |
+| Python              | 3.12                                                     |
+| Python packages     | see `pi/requirements.txt`                                |
+| Raspberry Pi        | Raspberry Pi 4 Model B                                   |
