@@ -1,7 +1,5 @@
 # Mosquitto (MQTT broker)
 
-Owner: Doaa
-
 Broker settings for the Raspberry Pi: port, authentication, topic permissions (ACL), and connection limits.
 
 - `config/mosquitto.conf`: broker configuration (TLS-only listener on 8883, no anonymous access)
