@@ -2,9 +2,9 @@
 
 Firmware for the ESP32 smart meter node.
 
-| Folder | Description 
-|---|---|---|
-| `meter_node/` | Main firmware: reads sensors, publishes telemetry over MQTT, and checks for OTA updates|
+| Folder | Description |
+|---|---|
+| `meter_node/` | Main firmware: reads sensors, publishes telemetry over MQTT, and checks for OTA updates |
 | `honeypot/` | Decoy firmware (version 2.0): sends fake telemetry and logs unauthorized commands |
 
 ## meter_node files
