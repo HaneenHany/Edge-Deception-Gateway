@@ -57,10 +57,10 @@ flowchart LR
 |---|---|---|---|
 | ESP32 firmware | ESP32 | Reads sensors, publishes telemetry, checks for OTA updates | Anwar, Haneen |
 | Mosquitto broker | Raspberry Pi | Passes MQTT messages between all parts | Doaa |
-| Detection engine | Raspberry Pi | Rate counter and AI model, gate before the dashboard and cloud | Alaa |
+| Detection engine | Raspberry Pi | Rate counter and AI model, gate before the dashboard and cloud | Mona |
 | OTA server | Raspberry Pi | Serves `latest.txt` and `firmware.bin` over HTTP | Doaa, Haneen |
 | Telegram bot | Raspberry Pi | Sends alerts and handles the Deploy button | Haneen |
-| Node-RED dashboard | Raspberry Pi | Shows readings and the green/red status | Alaa |
+| Node-RED dashboard | Raspberry Pi | Shows readings and the green/red status | Mona |
 
 ## Phases
 
