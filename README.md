@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
   R["Edge-Deception-Gateway"] --> D["docs"]
   R --> E["esp32"]
@@ -24,3 +25,4 @@ flowchart LR
 
   N --> N1["attacker"]
   F --> F1["dashboard"]
+```
