@@ -306,4 +306,4 @@ void loop()
     checkForUpdate();
     StartMillis = CurrentMillis;
   }
-}// Honeypot firmware (version 2.0): sends fake telemetry and logs unauthorized commands. Owner: Haneen.
+}// Honeypot firmware (version 2.0): sends fake telemetry and logs unauthorized commands.
