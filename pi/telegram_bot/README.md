@@ -7,7 +7,6 @@ Telegram bot for the Edge-Deception Gateway. It warns an IoT security engineer a
 - `bot.py`: the bot itself. It answers commands and handles the two buttons.
 - `SendAlert.py`: test script that sends a sample alert with the buttons, so you can try the bot without the detection script.
 - `config.example.py`: template for the bot token, chat ID, and OTA version file path
-- `requirements.txt`: Python packages for the project
 
 ## How it works
 
