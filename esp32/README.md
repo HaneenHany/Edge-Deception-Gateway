@@ -14,13 +14,13 @@ Firmware for the ESP32 smart meter node.
 
 ## honeypot files
 
-- `ESPHoneyPot.ino`: runs a decoy web server on port 80, publishes an alert (device ID, visitor IP, HTTP method, URI) to `edgeguard/v1/honeypot/<device_id>` over MQTT with TLS, and checks the OTA server for a firmware rollback
+- `honeypot.ino`: runs a decoy web server on port 80, publishes an alert (device ID, visitor IP, HTTP method, URI) to `edgeguard/v1/honeypot/<device_id>` over MQTT with TLS, and checks the OTA server for a firmware rollback
 - `secrets.example.h`: template for Wi-Fi, MQTT, and OTA settings
 
 ## Setup
 
 1. In the folder you are building, copy `secrets.example.h` to `secrets.h` and fill in your real values. Never commit `secrets.h`.
-2. Open `meter_node/meter_node.ino` or `honeypot/ESPHoneyPot.ino` in the Arduino IDE.
+2. Open `meter_node/meter_node.ino` or `honeypot/honeypot.ino` in the Arduino IDE.
 3. For the honeypot, install the **PubSubClient** library by Nick O'Leary from the Library Manager.
 4. Upload once by USB cable. After that, updates arrive over the air.
 
