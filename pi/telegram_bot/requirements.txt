@@ -1,1 +1,6 @@
-
+paho-mqtt
+numpy
+scikit-learn
+requests
+pyTelegramBotAPI
+python-dotenv
