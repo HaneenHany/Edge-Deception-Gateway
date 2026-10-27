@@ -2,16 +2,14 @@
 
 Firmware for the ESP32 smart meter node.
 
-| Folder | Description | Owner |
+| Folder | Description 
 |---|---|---|
-| `meter_node/` | Main firmware: reads sensors, publishes telemetry over MQTT, and checks for OTA updates | Anwar (telemetry), Haneen (OTA) |
-| `honeypot/` | Decoy firmware (version 2.0): sends fake telemetry and logs unauthorized commands | Haneen |
+| `meter_node/` | Main firmware: reads sensors, publishes telemetry over MQTT, and checks for OTA updates|
+| `honeypot/` | Decoy firmware (version 2.0): sends fake telemetry and logs unauthorized commands |
 
 ## meter_node files
 
-- `meter_node.ino`: `setup()` and `loop()` only
-- `telemetry.h`: sensor reading and MQTT publishing to `meter3/raw` (Anwar)
-- `ota.h`: OTA update check and download from the Raspberry Pi (Haneen)
+- `meter_node.ino` collecting data from esp and OTA update
 - `secrets.example.h`: template for Wi-Fi, MQTT, and OTA settings
 
 ## Setup
