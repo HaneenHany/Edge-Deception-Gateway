@@ -43,10 +43,3 @@ It triggers the detection script (`DetectionScript.py`) on purpose, so you can c
 - Turn the real ESP32 off, or expect two sources sending under one ID.
 - Run it from a different machine than the Pi, to behave like a real attacker on the network.
 
-## Don't commit credentials
-
-The MQTT password must never be in the repo. Before uploading:
-
-- Do not upload `flows_cred.json`. That is the file where Node-RED stores passwords.
-- Open `flows.json` in a text editor and check that it contains no password or token. Remove any that you find.
-- Add `flows_cred.json` to `.gitignore`.
